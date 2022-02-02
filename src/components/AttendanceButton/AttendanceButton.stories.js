@@ -5,7 +5,10 @@ import CenterView from "../../../storybook/stories/CenterView";
 import { text, color } from "@storybook/addon-knobs";
 import { generateColor } from "../../constants/colors";
 import CenterViewWeb from "../../../storybook/stories/CenterViewWeb";
+import {Platform} from "react-native";
 
+
+console.log("Platform:", Platform.OS)
 storiesOf("AttendanceButton", module)
 	.addDecorator((getStory) => <CenterView>{getStory()}</CenterView>)
 	.add("Attendance Button Native", () => (
@@ -15,11 +18,16 @@ storiesOf("AttendanceButton", module)
 		/>
 	));
 
-storiesOf("AttendanceButton", module)
-	.addDecorator((getStory) => <CenterViewWeb>{getStory()}</CenterViewWeb>)
-	.add("Web Attendance Button", () => (
-		<AttendanceButton
-			name={text("name", "Elliot Quinn", "AttendanceButtonKnobs")}
-			color={color("circle color", generateColor(), "AttendanceButtonKnobs")}
-		/>
-	));
+
+if (Platform.OS === "web") {
+	storiesOf("AttendanceButton", module)
+		.addDecorator((getStory) => <CenterViewWeb>{getStory()}</CenterViewWeb>)
+		.add("Web Attendance Button", () => (
+			<AttendanceButton
+				name={text("name", "Elliot Quinn", "AttendanceButtonKnobs")}
+				color={color("circle color", generateColor(), "AttendanceButtonKnobs")}
+			/>
+		));
+}
+
+
