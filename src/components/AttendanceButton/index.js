@@ -4,13 +4,12 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { generateColor } from "../../constants/colors";
 
-const AttendanceButton = ({ name, color }) => {
+const AttendanceButton = ({ name, color, active }) => {
 	const [splitName, setSplitName] = useState(name.split(" "));
-	const [isActive, setIsActive] = useState(true);
+	const [isActive, setIsActive] = useState(active);
 
-	const onClick = () => {
+	const onPress = () => {
 		setIsActive(!isActive);
-		console.log(name, " is here");
 	};
 	const styles = StyleSheet.create({
 		container: {
@@ -21,6 +20,7 @@ const AttendanceButton = ({ name, color }) => {
 			width: 310,
 			height: 80,
 			backgroundColor: isActive ? "transparent" : "rgba(255,255,255,0.15)",
+			// backgroundColor: isActive ? "transparent" : "rgba(255,255,255,0.15)",
 			borderRadius: 50,
 			marginVertical: 5,
 		},
@@ -45,7 +45,7 @@ const AttendanceButton = ({ name, color }) => {
 		},
 	});
 	return (
-		<Pressable style={styles.container} onPress={onClick}>
+		<Pressable style={styles.container} testID={"AttendanceButton"} onPress={onPress}>
 			<View style={styles.circle}>
 				<Text style={styles.text}>{splitName[0][0] + splitName[1][0]}</Text>
 			</View>

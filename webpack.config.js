@@ -17,6 +17,7 @@ module.exports = {
     alias: {
       'react-native$': 'react-native-web',
       '@storybook/react-native': '@storybook/react',
+      '@storybook/addon-ondevice-controls': '@storybook/addon-controls',
       'styled-components/native': 'styled-components',
     },
   },
@@ -39,7 +40,15 @@ module.exports = {
       },
     ],
   },
-  plugins: [HTMLWebpackPluginConfig],
+  plugins: [HTMLWebpackPluginConfig, {
+    name: '@storybook/addon-docs',
+    options: {
+      configureJSX: true,
+      babelOptions: {},
+      sourceLoaderOptions: null,
+      transcludeMarkdown: true,
+    },
+  },],
   devServer: {
     historyApiFallback: true,
     // contentBase: './',
